@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: workout-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: workout-api
+  template:
+    metadata:
+      labels:
+        app: workout-api
+    spec:
+      containers:
+      - name: workout-api
+        image: ghcr.io/eswan18/workout-api:latest
+        ports:
+        - containerPort: 8000
+        env:
+          - name: DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: application-secrets
+                key: DATABASE_URL
+          - name: APP_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: application-secrets
+                key: APP_SECRET
+          - name: USER_CREATION_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: application-secrets
+                key: USER_CREATION_SECRET
+
