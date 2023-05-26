@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: workout-app-service
+  name: workout-api-service
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: workout-api
   ports:
