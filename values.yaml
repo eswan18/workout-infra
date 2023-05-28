@@ -1,5 +1,10 @@
+global:
+  postgresql:
+    auth:
+      postgresPassword: mypassword
+      username: myuser
+      password: mypassword
+      database: workout-db
+
 postgresql:
   nameOverride: "workout-db"
-  posgresqlUsername: myuser
-  posgresqlPassword: mypassword
-  posgresqlDatabase: workout-db
