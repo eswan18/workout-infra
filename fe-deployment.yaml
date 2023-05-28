@@ -7,11 +7,12 @@ spec:
   selector:
     matchLabels:
       app: workout-fe
-    template:
-      metadata:
-        labels:
-          app: workout-fe
-      spec:
+  template:
+    metadata:
+      labels:
+        app: workout-fe
+    spec:
+      containers:
       - name: workout-fe
         image: ghcr.io/eswan18/workout-fe:latest
         ports:
