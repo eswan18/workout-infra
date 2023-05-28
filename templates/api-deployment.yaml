@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: workout-api-deployment
+  name: {{ .Release.Name }}-api
 spec:
   replicas: 1
   selector:
@@ -18,11 +18,6 @@ spec:
         ports:
         - containerPort: 8000
         env:
-          - name: DATABASE_URL
-            valueFrom:
-              secretKeyRef:
-                name: application-secrets
-                key: DATABASE_URL
           - name: APP_SECRET
             valueFrom:
               secretKeyRef:
@@ -35,3 +30,5 @@ spec:
                 key: USER_CREATION_SECRET
           - name: POSTGRES_USER
             value: {{ .Values.global.postgresql.auth.username }}
+          - name: DATABASE_URL
+            value: "postgresql://{{ .Values.global.postgresql.auth.username }}:{{ .Values.global.postgresql.auth.password }}@{{ .Release.Name }}-{{ .Values.postgresql.nameOverride }}.{{ .Release.Namespace }}.svc.cluster.local:5432/{{ .Values.global.postgresql.auth.database }}"
