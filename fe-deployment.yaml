@@ -20,4 +20,3 @@ spec:
         env:
           - name: WORKOUT_API_URL
             value: "http://workout-api-service:8000/v1"
-```
