@@ -1,0 +1,19 @@
+apiVersion: v2
+name: workout-app
+description: A workout application with a front-end, back-end, and database
+version: 1.0.0
+keywords:
+  - workout
+  - app
+  - chart
+home: https://github.com/eswan18/workout-infra
+sources:
+  - https://github.com/eswan18/workout-fe
+  - https://github.com/eswan18/workout-api
+maintainers:
+  - name: Ethan Swan
+    email: ethanpswan@gmail.com
+dependencies:
+  - name: postgresql
+    version: 12.5.5
+    repository: https://charts.bitnami.com/bitnami

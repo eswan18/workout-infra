@@ -18,10 +18,9 @@ stringData:
 
 # Starting it up
 
-I set this up using minikube on an M1 Mac. That seemed to cause some limitations, but these steps should work.
+I set this up using minikube and Helm on an M1 Mac. That seemed to cause some limitations, but these steps should work.
 
 1. Start minikube: `minikube start`
-2. Apply the deployment, service, ingress, and secrets.
-    - `kubectl apply -f deployment.yaml`, but for all four files
+2. `helm install my-app-release .`
 3. Start a tunnel: `minikube tunnel`
 4. `http://localhost:80` should now be available in the browser and via curl, etc.

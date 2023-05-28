@@ -1,0 +1,5 @@
+postgresql:
+  nameOverride: "workout-db"
+  posgresqlUsername: myuser
+  posgresqlPassword: mypassword
+  posgresqlDatabase: workout-db
