@@ -7,12 +7,11 @@ spec:
   selector:
     matchLabels:
       app: workout-fe
-  template:
-    metadata:
-      labels:
-        app: workout-fe
-    spec:
-      containers:
+    template:
+      metadata:
+        labels:
+          app: workout-fe
+      spec:
       - name: workout-fe
         image: ghcr.io/eswan18/workout-fe:latest
         ports:
@@ -20,4 +19,3 @@ spec:
         env:
           - name: WORKOUT_API_URL
             value: "http://workout-api-service:8000/v1"
-```
