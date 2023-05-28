@@ -19,4 +19,4 @@ spec:
         - containerPort: 3000
         env:
           - name: WORKOUT_API_URL
-            value: "http://workout-api-service:8000/v1"
+            value: "http://workout-api-service/v1"
