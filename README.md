@@ -2,7 +2,7 @@
 
 This repository owns the kubernetes configuration and other devops work for my Workout App.
 
-One file is not included: `secrets.yaml`. You will need to add one that looks like:
+One file is not included: `templates/secrets.yaml`. You will need to add one that looks like:
 
 ```yaml
 apiVersion: v1
@@ -26,8 +26,6 @@ I did this via minikube and Helm on an M1 Mac. No guarantees I can totally repro
 4. Install helm (`brew install helm`)
 
 # Starting it up
-
-I set this up using minikube and Helm on an M1 Mac. That seemed to cause some limitations, but these steps should work.
 
 1. Start minikube: `minikube start`
 2. `helm install workout-app .`
