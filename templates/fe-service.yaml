@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: workout-fe-service
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: workout-fe
   ports:

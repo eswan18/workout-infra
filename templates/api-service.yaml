@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: workout-api-service
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: workout-api
   ports:

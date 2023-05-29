@@ -9,9 +9,9 @@ spec:
   - http:
       paths:
       - path: /
-        pathType: Prefix
+        pathType: Exact
         backend:
           service:
             name: workout-fe-service
             port:
-              number: 3000
+              number: 80
