@@ -20,3 +20,8 @@ spec:
         env:
           - name: WORKOUT_API_URL
             value: "http://workout-api-service/v1"
+          - name: API_STATIC_APPLICATION_KEY
+            valueFrom:
+              secretKeyRef:
+                name: application-secrets
+                key: API_STATIC_APPLICATION_KEY

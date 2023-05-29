@@ -38,8 +38,8 @@ spec:
             secretKeyRef:
               name: application-secrets
               key: APP_SECRET
-        - name: USER_CREATION_SECRET
+        - name: STATIC_APPLICATION_KEY
           valueFrom:
             secretKeyRef:
               name: application-secrets
-              key: USER_CREATION_SECRET
+              key: API_STATIC_APPLICATION_KEY
