@@ -12,6 +12,13 @@ spec:
       labels:
         app: workout-api
     spec:
+      initContainers:
+      - name: migrate
+        image: ghcr.io/eswan18/workout-api:latest
+        command: ["alembic", "upgrade", "head"]
+        env:
+          - name: DATABASE_URL
+            value: "postgresql://{{ .Values.global.postgresql.auth.username }}:{{ .Values.global.postgresql.auth.password }}@{{ .Release.Name }}-{{ .Values.postgresql.nameOverride }}.{{ .Release.Namespace }}.svc.cluster.local:5432/{{ .Values.global.postgresql.auth.database }}"
       containers:
       - name: workout-api
         image: ghcr.io/eswan18/workout-api:latest
@@ -28,7 +35,5 @@ spec:
               secretKeyRef:
                 name: application-secrets
                 key: USER_CREATION_SECRET
-          - name: POSTGRES_USER
-            value: {{ .Values.global.postgresql.auth.username }}
           - name: DATABASE_URL
             value: "postgresql://{{ .Values.global.postgresql.auth.username }}:{{ .Values.global.postgresql.auth.password }}@{{ .Release.Name }}-{{ .Values.postgresql.nameOverride }}.{{ .Release.Namespace }}.svc.cluster.local:5432/{{ .Values.global.postgresql.auth.database }}"
