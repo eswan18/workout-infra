@@ -13,27 +13,33 @@ spec:
         app: workout-api
     spec:
       initContainers:
+      - name: wait
+        image: governmentpaas/psql
+        command: ['sh', '-c', 'until psql $DATABASE_URL -c "select 1"; do echo "waiting for postgres to accept connections ..."; sleep 2; done;']
+        env:
+        - name: DATABASE_URL
+          value: "postgresql://{{ .Values.global.postgresql.auth.username }}:{{ .Values.global.postgresql.auth.password }}@{{ .Release.Name }}-{{ .Values.postgresql.nameOverride }}.{{ .Release.Namespace }}.svc.cluster.local:5432/{{ .Values.global.postgresql.auth.database }}"
       - name: migrate
         image: ghcr.io/eswan18/workout-api:latest
         command: ["alembic", "upgrade", "head"]
         env:
-          - name: DATABASE_URL
-            value: "postgresql://{{ .Values.global.postgresql.auth.username }}:{{ .Values.global.postgresql.auth.password }}@{{ .Release.Name }}-{{ .Values.postgresql.nameOverride }}.{{ .Release.Namespace }}.svc.cluster.local:5432/{{ .Values.global.postgresql.auth.database }}"
+        - name: DATABASE_URL
+          value: "postgresql://{{ .Values.global.postgresql.auth.username }}:{{ .Values.global.postgresql.auth.password }}@{{ .Release.Name }}-{{ .Values.postgresql.nameOverride }}.{{ .Release.Namespace }}.svc.cluster.local:5432/{{ .Values.global.postgresql.auth.database }}"
       containers:
       - name: workout-api
         image: ghcr.io/eswan18/workout-api:latest
         ports:
         - containerPort: 8000
         env:
-          - name: APP_SECRET
-            valueFrom:
-              secretKeyRef:
-                name: application-secrets
-                key: APP_SECRET
-          - name: USER_CREATION_SECRET
-            valueFrom:
-              secretKeyRef:
-                name: application-secrets
-                key: USER_CREATION_SECRET
-          - name: DATABASE_URL
-            value: "postgresql://{{ .Values.global.postgresql.auth.username }}:{{ .Values.global.postgresql.auth.password }}@{{ .Release.Name }}-{{ .Values.postgresql.nameOverride }}.{{ .Release.Namespace }}.svc.cluster.local:5432/{{ .Values.global.postgresql.auth.database }}"
+        - name: DATABASE_URL
+          value: "postgresql://{{ .Values.global.postgresql.auth.username }}:{{ .Values.global.postgresql.auth.password }}@{{ .Release.Name }}-{{ .Values.postgresql.nameOverride }}.{{ .Release.Namespace }}.svc.cluster.local:5432/{{ .Values.global.postgresql.auth.database }}"
+        - name: APP_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: application-secrets
+              key: APP_SECRET
+        - name: USER_CREATION_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: application-secrets
+              key: USER_CREATION_SECRET
